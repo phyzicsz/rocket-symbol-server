@@ -21,3 +21,10 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/rocket-symbol-server/milo-core/target/
+/rocket-symbol-server/rocket-symbol-server-service/target/
+/rocket-symbol-server/rocket-symbol-server-service/nbproject/
+/rocket-symbol/rocket-symbol-server-service/nbproject/
+/rocket-symbol/rocket-symbol-server-service/target/
+/rocket-symbol/rocket-symbol-service/nbproject/
+/rocket-symbol/rocket-symbol-service/target/
