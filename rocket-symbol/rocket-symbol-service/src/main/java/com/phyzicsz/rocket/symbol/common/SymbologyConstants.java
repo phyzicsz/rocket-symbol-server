@@ -3,7 +3,7 @@
  * National Aeronautics and Space Administration.
  * All Rights Reserved.
  */
-package com.phyzicsz.milo.core;
+package com.phyzicsz.rocket.symbol.common;
 
 import java.util.Arrays;
 import java.util.List;

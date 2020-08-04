@@ -3,11 +3,13 @@
  * National Aeronautics and Space Administration.
  * All Rights Reserved.
  */
-package com.phyzicsz.milo.core;
+package com.phyzicsz.rocket.symbol.common;
 
+import com.phyzicsz.rocket.symbol.kvstore.KVStore;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.phyzicsz.rocket.symbol.kvstore.AbstractKVStore;
 
 /**
  * SymbolCode provides a utility for parsing and representing the individual
@@ -50,7 +52,7 @@ import org.slf4j.LoggerFactory;
  * @author pabercrombie
  * @version $Id: SymbolCode.java 1171 2013-02-11 21:45:02Z dcollins $
  */
-public class SymbolCode extends AVListImpl {
+public class SymbolCode extends KVStore {
 
     private static final Logger logger = LoggerFactory.getLogger(SymbolCode.class);
 
@@ -566,13 +568,13 @@ public class SymbolCode extends AVListImpl {
      *
      * @return a parameter list containing the modifier key-value pairs.
      */
-    public static AVList parseSymbolModifierCode(String code, AVList params) {
+    public static AbstractKVStore parseSymbolModifierCode(String code, AbstractKVStore params) {
         if (code == null || code.length() != 2 || code.equals("--")) {
             return params;
         }
 
         if (params == null) {
-            params = new AVListImpl();
+            params = new KVStore();
         }
 
         String firstChar = code.substring(0, 1);
@@ -630,7 +632,7 @@ public class SymbolCode extends AVListImpl {
         return params;
     }
 
-    public static String composeSymbolModifierCode(SymbolCode symbolCode, AVList modifiers, String modifierKey) {
+    public static String composeSymbolModifierCode(SymbolCode symbolCode, AbstractKVStore modifiers, String modifierKey) {
         if (symbolCode == null) {
             return null;
         }

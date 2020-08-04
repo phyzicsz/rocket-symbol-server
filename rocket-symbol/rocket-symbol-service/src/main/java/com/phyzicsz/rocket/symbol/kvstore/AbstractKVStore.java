@@ -3,7 +3,7 @@
  * National Aeronautics and Space Administration.
  * All Rights Reserved.
  */
-package com.phyzicsz.milo.core;
+package com.phyzicsz.rocket.symbol.kvstore;
 
 import java.util.*;
 
@@ -13,7 +13,7 @@ import java.util.*;
  * @author Tom Gaskins
  * @version $Id: AVList.java 1171 2013-02-11 21:45:02Z dcollins $
  */
-public interface AVList {
+public interface AbstractKVStore {
 
     /**
      * Adds a key/value pair to the list. Replaces an existing key/value pair if
@@ -42,7 +42,7 @@ public interface AVList {
      *
      * @throws NullPointerException if <code>avList</code> is <code>null</code>.
      */
-    AVList setValues(AVList avList);
+    AbstractKVStore setValues(AbstractKVStore avList);
 
     /**
      * Returns the value for a specified key.
@@ -106,7 +106,7 @@ public interface AVList {
      *
      * @return a shallow copy of this <code>AVList</code>.
      */
-    AVList copy();
+    AbstractKVStore copy();
 
-    AVList clearList();
+    AbstractKVStore clearList();
 }

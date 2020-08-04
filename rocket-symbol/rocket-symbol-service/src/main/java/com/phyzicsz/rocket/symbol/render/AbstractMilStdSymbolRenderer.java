@@ -3,16 +3,16 @@
  * National Aeronautics and Space Administration.
  * All Rights Reserved.
  */
-package com.phyzicsz.milo.core;
+package com.phyzicsz.rocket.symbol.render;
 
+import com.phyzicsz.rocket.symbol.common.IconRetriever;
+import com.phyzicsz.rocket.symbol.common.WWIO;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.*;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,84 +81,22 @@ import org.slf4j.LoggerFactory;
  * @author ccrick
  * @version $Id: AbstractIconRetriever.java 1171 2013-02-11 21:45:02Z dcollins $
  */
-public abstract class AbstractIconRetriever implements IconRetriever {
+public abstract class AbstractMilStdSymbolRenderer implements IconRetriever {
 
-    private static final Logger logger = LoggerFactory.getLogger(AbstractIconRetriever.class);
+    private static final Logger logger = LoggerFactory.getLogger(AbstractMilStdSymbolRenderer.class);
     /**
      * Path in the file system or network to the symbol repository.
      */
-    protected String retrieverPath;
+    protected final String baseImagePath = "/symbols";
 
-    /**
-     * Create a new retriever that will retrieve icons from the specified
-     * location. The retrieval path may be a file URL to a directory on the
-     * local file system (for example, file:///symbols/mil-std-2525). A URL to a
-     * network resource (http://myserver.com/milstd2525/), or a URL to a JAR or
-     * ZIP file (jar:file:milstd2525-symbols.zip!).
-     *
-     * @param retrieverPath URL to to the base symbol directory on the local
-     * file system or the network.
-     */
-    public AbstractIconRetriever(String retrieverPath) {
-        if (retrieverPath == null || retrieverPath.length() == 0) {
-            logger.error("retrieverPath is null");
-            throw new IllegalArgumentException("retrieverPath is null");
-        }
+    public AbstractMilStdSymbolRenderer() {
 
-        this.retrieverPath = retrieverPath;
     }
 
-    /**
-     * Indicates the file system or network path of the symbol directory.. The
-     * retrieval path may be a file URL to a directory on the local file system
-     * (for example, file:///symbols/mil-std-2525). A URL to a network resource
-     * ( http://myserver.com/milstd2525/), or a URL to a JAR or ZIP file
-     * (jar:file:milstd2525-symbols.zip!).
-     *
-     * @return File system or network path to symbol repository.
-     */
-    public String getRetrieverPath() {
-        return this.retrieverPath;
+    public String getBasePath() {
+        return this.baseImagePath;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.retrieverPath);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof AbstractIconRetriever)) {
-            return false;
-        }
-        final AbstractIconRetriever other = (AbstractIconRetriever) obj;
-        if (!Objects.equals(this.retrieverPath, other.retrieverPath)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Load an image from a local or remote path. The image path is interpreted
-     * relative to the retrieval path. For example, if the retrieval path is
-     * http://myserver.com/milstd2525/, calling readImage("icon.png") will
-     * attempt to retrieve an image from
-     * http://myserver.com/milstd2525/icon.png.
-     *
-     * @param path Path to the icon resource, relative to this retriever's
-     * retrieval path.
-     *
-     * @return The requested icon as a BufferedImage, or null if the icon cannot
-     * be loaded.
-     */
     protected BufferedImage readImage(String path) {
         if (path == null) {
             logger.error("retrieverPath is null");
@@ -166,28 +104,21 @@ public abstract class AbstractIconRetriever implements IconRetriever {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append(WWIO.stripTrailingSeparator(this.getRetrieverPath()));
+        sb.append(WWIO.stripTrailingSeparator(this.getBasePath()));
         sb.append("/");
         sb.append(WWIO.stripLeadingSeparator(path));
 
         InputStream is = null;
         try {
-//            Path baseFilePath = Paths.get(sb.toString());
-//            URL url = WWIO.makeURL(sb.toString());
 
-is = getClass().getResourceAsStream(sb.toString());
-if (null != is) {
-    return ImageIO.read(is);
-}
-
-//            is = WWIO.openFileOrResourceStream(sb.toString(), this.getClass());
-//            if (is != null) {
-return ImageIO.read(is);
-//            }
+            is = getClass().getResourceAsStream(sb.toString());
+            if (null != is) {
+                return ImageIO.read(is);
+            }
+            return ImageIO.read(is);
         } catch (IOException ex) {
             logger.error("ExceptionWhileReading", ex);
-        } 
-        finally {
+        } finally {
             WWIO.closeStream(is, sb.toString());
         }
 
@@ -342,4 +273,30 @@ return ImageIO.read(is);
             image.setRGB(0, y, w, 1, pixels, 0, w);
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.baseImagePath);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof AbstractMilStdSymbolRenderer)) {
+            return false;
+        }
+        final AbstractMilStdSymbolRenderer other = (AbstractMilStdSymbolRenderer) obj;
+        if (!Objects.equals(this.baseImagePath, other.baseImagePath)) {
+            return false;
+        }
+        return true;
+    }
+
 }

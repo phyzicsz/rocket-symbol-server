@@ -3,18 +3,14 @@
  * National Aeronautics and Space Administration.
  * All Rights Reserved.
  */
-package com.phyzicsz.milo.core;
+package com.phyzicsz.rocket.symbol.kvstore;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.*;
-import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * An implementation class for the {@link AVList} interface. Classes
+ * An implementation class for the {@link AbstractKVStore} interface. Classes
  * implementing <code>AVList</code> can subclass or aggregate this class to
  * provide default <code>AVList</code> functionality. This class maintains a
  * hash table of attribute-value pairs.
@@ -27,12 +23,11 @@ import org.slf4j.LoggerFactory;
  * @author Tom Gaskins
  * @version $Id: AVListImpl.java 2255 2014-08-22 17:36:32Z tgaskins $
  */
-public class AVListImpl implements AVList {
+public class KVStore implements AbstractKVStore {
 
-    private static final Logger logger = LoggerFactory.getLogger(AVListImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(KVStore.class);
 
-    // Identifies the property change support instance in the avlist
-    private static final String PROPERTY_CHANGE_SUPPORT = "avlist.PropertyChangeSupport";
+  
 
     // To avoid unnecessary overhead, this object's hash map is created only if needed.
     private Map<String, Object> avList;
@@ -40,18 +35,7 @@ public class AVListImpl implements AVList {
     /**
      * Creates an empty attribute-value list.
      */
-    public AVListImpl() {
-    }
-
-    /**
-     * Constructor enabling aggregation
-     *
-     * @param sourceBean The bean to be given as the source for any events.
-     */
-    public AVListImpl(Object sourceBean) {
-        if (sourceBean != null) {
-            this.setValue(PROPERTY_CHANGE_SUPPORT, new PropertyChangeSupport(sourceBean));
-        }
+    public KVStore() {
     }
 
     private boolean hasAvList() {
@@ -125,7 +109,7 @@ public class AVListImpl implements AVList {
     }
 
     @Override
-    synchronized public AVList setValues(AVList list) {
+    synchronized public AbstractKVStore setValues(AbstractKVStore list) {
         if (list == null) {
             logger.error("attribute list is null");
             throw new IllegalArgumentException("attribute list is null");
@@ -160,8 +144,8 @@ public class AVListImpl implements AVList {
     }
 
     @Override
-    synchronized public AVList copy() {
-        AVListImpl clone = new AVListImpl();
+    synchronized public AbstractKVStore copy() {
+        KVStore clone = new KVStore();
 
         if (this.avList != null) {
             clone.createAvList();
@@ -172,30 +156,21 @@ public class AVListImpl implements AVList {
     }
 
     @Override
-    synchronized public AVList clearList() {
+    synchronized public AbstractKVStore clearList() {
         if (this.hasAvList()) {
             this.avList.clear();
         }
         return this;
     }
 
-    synchronized protected PropertyChangeSupport getChangeSupport() {
-        Object pcs = this.getValue(PROPERTY_CHANGE_SUPPORT);
-        if (pcs == null || !(pcs instanceof PropertyChangeSupport)) {
-            pcs = new PropertyChangeSupport(this);
-            this.setValue(PROPERTY_CHANGE_SUPPORT, pcs);
-        }
-
-        return (PropertyChangeSupport) pcs;
-    }
 
     // Static AVList utilities.
-    public static String getStringValue(AVList avList, String key, String defaultValue) {
+    public static String getStringValue(AbstractKVStore avList, String key, String defaultValue) {
         String v = getStringValue(avList, key);
         return v != null ? v : defaultValue;
     }
 
-    public static String getStringValue(AVList avList, String key) {
+    public static String getStringValue(AbstractKVStore avList, String key) {
         try {
             return avList.getStringValue(key);
         } catch (Exception e) {
@@ -203,12 +178,12 @@ public class AVListImpl implements AVList {
         }
     }
 
-    public static Integer getIntegerValue(AVList avList, String key, Integer defaultValue) {
+    public static Integer getIntegerValue(AbstractKVStore avList, String key, Integer defaultValue) {
         Integer v = getIntegerValue(avList, key);
         return v != null ? v : defaultValue;
     }
 
-    public static Integer getIntegerValue(AVList avList, String key) {
+    public static Integer getIntegerValue(AbstractKVStore avList, String key) {
         Object o = avList.getValue(key);
         if (o == null) {
             return null;
@@ -231,12 +206,12 @@ public class AVListImpl implements AVList {
         }
     }
 
-    public static Long getLongValue(AVList avList, String key, Long defaultValue) {
+    public static Long getLongValue(AbstractKVStore avList, String key, Long defaultValue) {
         Long v = getLongValue(avList, key);
         return v != null ? v : defaultValue;
     }
 
-    public static Long getLongValue(AVList avList, String key) {
+    public static Long getLongValue(AbstractKVStore avList, String key) {
         Object o = avList.getValue(key);
         if (o == null) {
             return null;
@@ -259,12 +234,12 @@ public class AVListImpl implements AVList {
         }
     }
 
-    public static Double getDoubleValue(AVList avList, String key, Double defaultValue) {
+    public static Double getDoubleValue(AbstractKVStore avList, String key, Double defaultValue) {
         Double v = getDoubleValue(avList, key);
         return v != null ? v : defaultValue;
     }
 
-    public static Double getDoubleValue(AVList avList, String key) {
+    public static Double getDoubleValue(AbstractKVStore avList, String key) {
         Object o = avList.getValue(key);
         if (o == null) {
             return null;
@@ -306,12 +281,12 @@ public class AVListImpl implements AVList {
 //
 //        rs.addStateValueAsString(context, key, value.toString());
 //    }
-    public static Boolean getBooleanValue(AVList avList, String key, Boolean defaultValue) {
+    public static Boolean getBooleanValue(AbstractKVStore avList, String key, Boolean defaultValue) {
         Boolean v = getBooleanValue(avList, key);
         return v != null ? v : defaultValue;
     }
 
-    public static Boolean getBooleanValue(AVList avList, String key) {
+    public static Boolean getBooleanValue(AbstractKVStore avList, String key) {
         Object o = avList.getValue(key);
         if (o == null) {
             return null;

@@ -3,13 +3,13 @@
  * National Aeronautics and Space Administration.
  * All Rights Reserved.
  */
-package com.phyzicsz.milo.core;
+package com.phyzicsz.rocket.symbol.kvstore;
 
 /**
  * @author Tom Gaskins
  * @version $Id: AVKey.java 2375 2014-10-10 23:35:05Z tgaskins $
  */
-public interface AVKey // TODO: Eliminate unused constants, if any
+public interface KVKey // TODO: Eliminate unused constants, if any
 {
     // NOTE: Keep all keys in alphabetical order except where noted
 
@@ -309,11 +309,11 @@ public interface AVKey // TODO: Eliminate unused constants, if any
     final String PIXEL_HEIGHT = "gov.nasa.worldwind.avkey.PixelHeight";
     final String PIXEL_WIDTH = "gov.nasa.worldwind.avkey.PixelWidth";
 
-    /**
-     * @deprecated Use <code>{@link #DATA_TYPE} instead.</code>.
-     */
-    @Deprecated
-    final String PIXEL_TYPE = AVKey.DATA_TYPE;
+//    /**
+//     * @deprecated Use <code>{@link #DATA_TYPE} instead.</code>.
+//     */
+//    @Deprecated
+//    final String PIXEL_TYPE = AVKey.DATA_TYPE;
 
     final String PLACENAME_LAYER_CACHE_SIZE = "gov.nasa.worldwind.avkey.PlacenameLayerCacheSize";
     final String PLAY = "gov.nasa.worldwind.avkey.Play";

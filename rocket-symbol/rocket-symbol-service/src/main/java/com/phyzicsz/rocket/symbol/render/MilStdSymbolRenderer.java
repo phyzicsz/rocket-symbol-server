@@ -3,15 +3,26 @@
  * National Aeronautics and Space Administration.
  * All Rights Reserved.
  */
-package com.phyzicsz.milo.core;
+package com.phyzicsz.rocket.symbol.render;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
+import com.phyzicsz.rocket.symbol.common.WWIO;
+import com.phyzicsz.rocket.symbol.common.SymbologyConstants;
+import com.phyzicsz.rocket.symbol.common.SymbolCode;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.phyzicsz.rocket.symbol.kvstore.KVKey;
+import com.phyzicsz.rocket.symbol.kvstore.AbstractKVStore;
 
 /**
  * Retriever to retrieve icons for symbols in the MIL-STD-2525 symbol set. The
@@ -52,9 +63,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: MilStd2525IconRetriever.java 1171 2013-02-11 21:45:02Z dcollins
  * $
  */
-public class MilStd2525IconRetriever extends AbstractIconRetriever {
+public class MilStdSymbolRenderer extends AbstractMilStdSymbolRenderer {
 
-    private static final Logger logger = LoggerFactory.getLogger(MilStd2525IconRetriever.class);
+    private static final Logger logger = LoggerFactory.getLogger(MilStdSymbolRenderer.class);
 
     protected static final String FILLS_PATH = "fills";
     protected static final String FRAMES_PATH = "frames";
@@ -96,26 +107,17 @@ public class MilStd2525IconRetriever extends AbstractIconRetriever {
 
     // Static maps and sets providing fast access to attributes about a symbol ID. These data structures are populated
     // in a static block at the bottom of this class.
-    protected static final Map<String, String> schemePathMap = new HashMap<String, String>();
-    protected static final Map<String, Color> fillColorMap = new HashMap<String, Color>();
-    protected static final Map<String, Color> frameColorMap = new HashMap<String, Color>();
-    protected static final Map<String, Color> iconColorMap = new HashMap<String, Color>();
-    protected static final Set<String> unfilledIconMap = new HashSet<String>();
-    protected static final Set<String> unframedIconMap = new HashSet<String>();
-    protected static final Set<String> emsEquipment = new HashSet<String>();
+    protected static final Map<String, String> schemePathMap = new HashMap<>();
+    protected static final Map<String, Color> fillColorMap = new HashMap<>();
+    protected static final Map<String, Color> frameColorMap = new HashMap<>();
+    protected static final Map<String, Color> iconColorMap = new HashMap<>();
+    protected static final Set<String> unfilledIconMap = new HashSet<>();
+    protected static final Set<String> unframedIconMap = new HashSet<>();
+    protected static final Set<String> emsEquipment = new HashSet<>();
 
-    /**
-     * Create a new retriever that will retrieve icons from the specified
-     * location. The retrieval path may be a file URL to a directory on the
-     * local file system (for example, file:///symbols/mil-std-2525). A URL to a
-     * network resource (http://myserver.com/milstd2525/), or a URL to a JAR or
-     * ZIP file (jar:file:milstd2525-symbols.zip!).
-     *
-     * @param retrieverPath File path or URL to the symbol directory, for
-     * example "http://myserver.com/milstd2525/".
-     */
-    public MilStd2525IconRetriever(String retrieverPath) {
-        super(retrieverPath);
+   
+    public MilStdSymbolRenderer() {
+
     }
 
     /**
@@ -133,7 +135,7 @@ public class MilStd2525IconRetriever extends AbstractIconRetriever {
      * @throws java.io.IOException
      */
     @Override
-    public BufferedImage createIcon(String sidc, AVList params) throws IOException {
+    public BufferedImage createIcon(String sidc, AbstractKVStore params) throws IOException {
         if (sidc == null) {
             logger.error("symbol code is null");
             throw new IllegalArgumentException("symbol code is null");
@@ -168,7 +170,7 @@ public class MilStd2525IconRetriever extends AbstractIconRetriever {
         return image;
     }
 
-    protected boolean mustDrawFill(SymbolCode symbolCode, AVList params) {
+    protected boolean mustDrawFill(SymbolCode symbolCode, AbstractKVStore params) {
         String maskedCode = symbolCode.toMaskedString().toLowerCase();
         if (unfilledIconMap.contains(maskedCode)) {
             return false;
@@ -178,7 +180,7 @@ public class MilStd2525IconRetriever extends AbstractIconRetriever {
         return o == null || o.equals(Boolean.TRUE);
     }
 
-    protected boolean mustDrawFrame(SymbolCode symbolCode, AVList params) {
+    protected boolean mustDrawFrame(SymbolCode symbolCode, AbstractKVStore params) {
         String maskedCode = symbolCode.toMaskedString().toLowerCase();
         if (unframedIconMap.contains(maskedCode)) {
             return false;
@@ -189,33 +191,33 @@ public class MilStd2525IconRetriever extends AbstractIconRetriever {
     }
 
     @SuppressWarnings({"UnusedParameters"})
-    protected boolean mustDrawIcon(SymbolCode symbolCode, AVList params) {
+    protected boolean mustDrawIcon(SymbolCode symbolCode, AbstractKVStore params) {
         Object o = params != null ? params.getValue(SymbologyConstants.SHOW_ICON) : null;
         return o == null || o.equals(Boolean.TRUE);
     }
 
-    protected BufferedImage drawFill(SymbolCode symbolCode, AVList params, BufferedImage dest) {
+    protected BufferedImage drawFill(SymbolCode symbolCode, AbstractKVStore params, BufferedImage dest) {
         String path = this.composeFillPath(symbolCode);
         Color color = this.getFillColor(symbolCode, params);
 
         return path != null ? this.drawIconComponent(path, color, dest) : dest;
     }
 
-    protected BufferedImage drawFrame(SymbolCode symbolCode, AVList params, BufferedImage dest) {
+    protected BufferedImage drawFrame(SymbolCode symbolCode, AbstractKVStore params, BufferedImage dest) {
         String path = this.composeFramePath(symbolCode);
         Color color = this.getFrameColor(symbolCode, params);
 
         return path != null ? this.drawIconComponent(path, color, dest) : dest;
     }
 
-    protected BufferedImage drawIcon(SymbolCode symbolCode, AVList params, BufferedImage dest) throws IOException {
+    protected BufferedImage drawIcon(SymbolCode symbolCode, AbstractKVStore params, BufferedImage dest) throws IOException {
         String path = this.composeIconPath(symbolCode, params);
         Color color = this.getIconColor(symbolCode, params);
 
         return path != null ? this.drawIconComponent(path, color, dest) : dest;
     }
 
-    protected BufferedImage drawCircle(SymbolCode symbolCode, AVList params, BufferedImage dest) {
+    protected BufferedImage drawCircle(SymbolCode symbolCode, AbstractKVStore params, BufferedImage dest) {
         Color frameColor = DEFAULT_FRAME_COLOR;
         Color fillColor = this.mustDrawFill(symbolCode, params) ? this.getFillColor(symbolCode, params)
                 : DEFAULT_ICON_COLOR;
@@ -296,7 +298,7 @@ public class MilStd2525IconRetriever extends AbstractIconRetriever {
         return sb.toString();
     }
 
-    protected String composeIconPath(SymbolCode symbolCode, AVList params) throws IOException {
+    protected String composeIconPath(SymbolCode symbolCode, AbstractKVStore params) throws IOException {
         String scheme = symbolCode.getScheme();
         String bd = symbolCode.getBattleDimension();
 
@@ -322,12 +324,12 @@ public class MilStd2525IconRetriever extends AbstractIconRetriever {
         }
     }
 
-    protected Color getFillColor(SymbolCode symbolCode, AVList params) {
+    protected Color getFillColor(SymbolCode symbolCode, AbstractKVStore params) {
         Color color = this.getColorFromParams(params);
         return color != null ? color : fillColorMap.get(symbolCode.getStandardIdentity().toLowerCase());
     }
 
-    protected Color getFrameColor(SymbolCode symbolCode, AVList params) {
+    protected Color getFrameColor(SymbolCode symbolCode, AbstractKVStore params) {
         if (this.isDashedFrame(symbolCode)) {
             return null; // Dashed pending or exercise frames are not colored.
         }
@@ -338,7 +340,7 @@ public class MilStd2525IconRetriever extends AbstractIconRetriever {
         return color != null ? color : frameColorMap.get(symbolCode.getStandardIdentity().toLowerCase());
     }
 
-    protected Color getIconColor(SymbolCode symbolCode, AVList params) {
+    protected Color getIconColor(SymbolCode symbolCode, AbstractKVStore params) {
         String maskedCode = symbolCode.toMaskedString().toLowerCase();
 
         if (this.mustDrawFrame(symbolCode, params)) {
@@ -367,12 +369,12 @@ public class MilStd2525IconRetriever extends AbstractIconRetriever {
      * is null, if there is no value for key AVKey.COLOR, or if the value is not
      * a Color.
      */
-    protected Color getColorFromParams(AVList params) {
+    protected Color getColorFromParams(AbstractKVStore params) {
         if (params == null) {
             return null;
         }
 
-        Object o = params.getValue(AVKey.COLOR);
+        Object o = params.getValue(KVKey.COLOR);
         return (o instanceof Color) ? (Color) o : null;
     }
 
@@ -457,7 +459,7 @@ public class MilStd2525IconRetriever extends AbstractIconRetriever {
         }
     }
 
-    protected String getMaskedIconCode(SymbolCode symbolCode, AVList params) throws IOException {
+    protected String getMaskedIconCode(SymbolCode symbolCode, AbstractKVStore params) throws IOException {
         String si = this.getSimpleStandardIdentity(symbolCode); // Either Unknown, Friend, Neutral, or Hostile.
         String status = this.getSimpleStatus(symbolCode); // Either Present or Anticipated.
 
@@ -475,7 +477,7 @@ public class MilStd2525IconRetriever extends AbstractIconRetriever {
         return maskedCode.toString();
     }
 
-    protected String getMaskedUnknownIconCode(SymbolCode symbolCode, AVList params) {
+    protected String getMaskedUnknownIconCode(SymbolCode symbolCode, AbstractKVStore params) {
         String si = this.getSimpleStandardIdentity(symbolCode); // Either Unknown, Friend, Neutral, or Hostile.
         String bd = symbolCode.getBattleDimension();
         String status = this.getSimpleStatus(symbolCode); // Either Present or Anticipated.

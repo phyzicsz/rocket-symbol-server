@@ -3,10 +3,11 @@
  * National Aeronautics and Space Administration.
  * All Rights Reserved.
  */
-package com.phyzicsz.milo.core;
+package com.phyzicsz.rocket.symbol.common;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import com.phyzicsz.rocket.symbol.kvstore.AbstractKVStore;
 
 /**
  * Retrieves icons for symbols in a symbol set from a local disk or the network.
@@ -31,5 +32,5 @@ public interface IconRetriever {
      * @return A BufferedImage containing the requested icon, or null if the
      * icon cannot be retrieved.
      */
-    BufferedImage createIcon(String symbolId, AVList params) throws IOException;
+    BufferedImage createIcon(String symbolId, AbstractKVStore params) throws IOException;
 }

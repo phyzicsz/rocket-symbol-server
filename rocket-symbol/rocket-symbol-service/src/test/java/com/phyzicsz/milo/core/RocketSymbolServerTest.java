@@ -15,24 +15,20 @@
  */
 package com.phyzicsz.milo.core;
 
-import java.awt.Color;
+import com.phyzicsz.rocket.symbol.RocketSymbolService;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import com.phyzicsz.rocket.symbol.kvstore.AbstractKVStore;
 
 /**
  *
  * @author phyzicsz <phyzics.z@gmail.com>
  */
-public class MilStd2525IconRetrieverTest {
+public class RocketSymbolServerTest {
 
-    public MilStd2525IconRetrieverTest() {
+    public RocketSymbolServerTest() {
     }
 
     /**
@@ -40,15 +36,15 @@ public class MilStd2525IconRetrieverTest {
      */
     @Test
     public void testCreateIcon() throws Exception {
-        System.out.println("createIcon");
-        String sidc = "SFUPSK---------";
-        AVList params = null;
-        MilStd2525IconRetriever instance = new MilStd2525IconRetriever("/symbols");
-
-        BufferedImage image = instance.createIcon(sidc, params);
-
-        File outputfile = new File("/tmp/"+ sidc + ".png");
-        ImageIO.write(image, "png", outputfile);
+//        System.out.println("createIcon");
+//        String sidc = "SFUPSK---------";
+//        AbstractKVStore params = null;
+//        RocketSymbolService instance = new RocketSymbolService();
+//
+//        BufferedImage image = instance.createIcon(sidc, params);
+//
+//        File outputfile = new File("/tmp/"+ sidc + ".png");
+//        ImageIO.write(image, "png", outputfile);
 
     }
 
