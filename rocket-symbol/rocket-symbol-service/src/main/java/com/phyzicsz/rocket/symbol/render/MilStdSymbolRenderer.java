@@ -141,6 +141,9 @@ public class MilStdSymbolRenderer extends AbstractMilStdSymbolRenderer {
             throw new IllegalArgumentException("symbol code is null");
         }
 
+        //replace all tactical customizations with standard markings...
+        sidc = sidc.replace('*','-');
+        
         SymbolCode symbolCode = new SymbolCode(sidc);
         BufferedImage image = null;
 

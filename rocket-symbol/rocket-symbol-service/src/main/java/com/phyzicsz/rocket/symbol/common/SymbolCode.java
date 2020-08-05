@@ -72,22 +72,21 @@ public class SymbolCode extends KVStore {
 
     /**
      * Creates a new SymbolCode by parsing the fields of the specified
-     * MIL-STD-2525 15-character alphanumeric symbol identification code (SIDC).
-     * This populates the new SymbolCode's fields according to the contents of
-     * the string. This throws an exception if any field in the symbol code is
-     * unrecognized, and indicates the problematic fields in the exception's
-     * message. After construction, each field can be accessed by calling the
-     * appropriate accessor methods (for example: getScheme/setScheme)
-     * <p>
+     * MIL-STD-2525 15-character alphanumeric symbol identification code (SIDC).This populates the new SymbolCode's fields according to the contents of
+ the string.This throws an exception if any field in the symbol code is
+ unrecognized, and indicates the problematic fields in the exception's
+ message.
+     * After construction, each field can be accessed by calling the
+ appropriate accessor methods (for example: getScheme/setScheme)
+ <p>
      * See SymbolCode's class-level documentation for an overview of the
      * supported MIL-STD-2525 symbol code fields.
      *
      * @param symCode the symbol identification code to parse.
+     * @throws java.io.IOException
      *
      * @throws IllegalArgumentException if the symCode is <code>null</code> or
      * has a length other than 15.
-     * @throws WWUnrecognizedException if any field in the symCode is invalid or
-     * cannot be recognized.
      */
     public SymbolCode(String symCode) throws IOException {
         if (symCode == null) {
@@ -99,7 +98,7 @@ public class SymbolCode extends KVStore {
             logger.error("symbol code is invalid length: {}", symCode.length());
             throw new IllegalArgumentException("symbol code is invalid len");
         }
-
+                
         String s = this.parseSymCode(symCode);
         if (s != null) {
             // A non-null return value indicates the symCode is unrecognized, and contains a message indicating the

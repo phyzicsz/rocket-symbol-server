@@ -13,6 +13,9 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.imageio.ImageIO;
 
 
@@ -54,11 +57,38 @@ public class RocketSymbolService {
 
         byte[] bytes;
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            ImageIO.write(image, "jpg", baos);
+            ImageIO.write(image, "png", baos);
             baos.flush();
             bytes = baos.toByteArray();
         }
         return bytes;
+    }
+    
+    public void pngToFile(final String symbolCode, final String path) throws IOException {
+        BufferedImage image = renderer.createIcon(symbolCode, kv);
+
+        byte[] bytes;
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            ImageIO.write(image, "png", baos);
+            baos.flush();
+            bytes = baos.toByteArray();
+        }
+        
+        Path filepath = Paths.get(path);
+        Files.write(filepath, bytes);
+    }
+    
+    public void pngToFile(final String symbolCode, final Path path) throws IOException {
+        BufferedImage image = renderer.createIcon(symbolCode, kv);
+
+        byte[] bytes;
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            ImageIO.write(image, "png", baos);
+            baos.flush();
+            bytes = baos.toByteArray();
+        }
+        
+        Files.write(path, bytes);
     }
 
 }
