@@ -9,7 +9,6 @@ import com.phyzicsz.rocket.symbol.kvstore.KVStore;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.phyzicsz.rocket.symbol.kvstore.AbstractKVStore;
 
 /**
  * SymbolCode provides a utility for parsing and representing the individual
@@ -567,129 +566,129 @@ public class SymbolCode extends KVStore {
      *
      * @return a parameter list containing the modifier key-value pairs.
      */
-    public static AbstractKVStore parseSymbolModifierCode(String code, AbstractKVStore params) {
-        if (code == null || code.length() != 2 || code.equals("--")) {
-            return params;
-        }
+//    public static AbstractKVStore parseSymbolModifierCode(String code, AbstractKVStore params) {
+//        if (code == null || code.length() != 2 || code.equals("--")) {
+//            return params;
+//        }
+//
+//        if (params == null) {
+//            params = new KVStore();
+//        }
+//
+//        String firstChar = code.substring(0, 1);
+//        String secondChar = code.substring(1, 2);
+//        String uppercaseCode = code.toUpperCase();
+//        String uppercaseFirstChar = firstChar.toUpperCase();
+//        String uppercaseSecondChar = secondChar.toUpperCase();
+//
+//        if (SymbologyConstants.MODIFIER_CODE_ALL_UEI.contains(uppercaseFirstChar)
+//                || UNUSED_POSITION_CODE.equals(uppercaseFirstChar)) {
+//            // The symbol modifier code indicates units and equipment modifiers. The first character is either unused or
+//            // indicates the symbol's headquarters, task force, and feint/dummy status. MIL-STD-2525 supports any
+//            // combination of the headquarters, task force, and feint/dummy states, so we check for each independently.
+//            // The second character is either unused or indicates the symbol's echelon.
+//
+//            if (SymbologyConstants.ECHELON_ALL.contains(uppercaseSecondChar)) {
+//                params.setValue(SymbologyConstants.ECHELON, secondChar);
+//            }
+//
+//            if (SymbologyConstants.MODIFIER_CODE_ALL_HEADQUARTERS.contains(uppercaseFirstChar)) {
+//                params.setValue(SymbologyConstants.HEADQUARTERS, Boolean.TRUE);
+//            }
+//
+//            if (SymbologyConstants.MODIFIER_CODE_ALL_TASK_FORCE.contains(uppercaseFirstChar)) {
+//                params.setValue(SymbologyConstants.TASK_FORCE, Boolean.TRUE);
+//            }
+//
+//            if (SymbologyConstants.MODIFIER_CODE_ALL_FEINT_DUMMY.contains(uppercaseFirstChar)) {
+//                params.setValue(SymbologyConstants.FEINT_DUMMY, Boolean.TRUE);
+//            }
+//        } else if (SymbologyConstants.INSTALLATION_ALL.contains(uppercaseCode)) {
+//            // The symbol modifier code indicates an installation modifier. Currently, this must either be a normal
+//            // installation or a feint/dummy installation. Though the installation modifier code indicates that an
+//            // installation is a feint/dummy, we check for this case and set the FEINT_DUMMY modifier key to TRUE. This
+//            // provides a consistent modifier key for feint/dummy status across for units/equipment and installations.
+//
+//            params.setValue(SymbologyConstants.INSTALLATION, code);
+//
+//            if (SymbologyConstants.INSTALLATION_FEINT_DUMMY.equalsIgnoreCase(code)) {
+//                params.setValue(SymbologyConstants.FEINT_DUMMY, Boolean.TRUE);
+//            }
+//        } else if (SymbologyConstants.MOBILITY_ALL.contains(uppercaseCode)) {
+//            // The symbol modifier code indicates an equipment mobility modifier.
+//            params.setValue(SymbologyConstants.MOBILITY, code);
+//        } else if (SymbologyConstants.AUXILIARY_EQUIPMENT_ALL.contains(uppercaseCode)) {
+//            // The symbol modifier code indicates an auxiliary equipment modifier. Currently, this is limited to the
+//            // towed sonar array modifier.
+//            params.setValue(SymbologyConstants.AUXILIARY_EQUIPMENT, code);
+//        } else if (SymbologyConstants.OPERATIONAL_CONDITION_ALL.contains(uppercaseCode)) {
+//            params.setValue(SymbologyConstants.OPERATIONAL_CONDITION, code);
+//        } else if (SymbologyConstants.OPERATIONAL_CONDITION_ALTERNATE_ALL.contains(uppercaseCode)) {
+//            params.setValue(SymbologyConstants.OPERATIONAL_CONDITION_ALTERNATE, code);
+//        }
+//
+//        return params;
+//    }
 
-        if (params == null) {
-            params = new KVStore();
-        }
-
-        String firstChar = code.substring(0, 1);
-        String secondChar = code.substring(1, 2);
-        String uppercaseCode = code.toUpperCase();
-        String uppercaseFirstChar = firstChar.toUpperCase();
-        String uppercaseSecondChar = secondChar.toUpperCase();
-
-        if (SymbologyConstants.MODIFIER_CODE_ALL_UEI.contains(uppercaseFirstChar)
-                || UNUSED_POSITION_CODE.equals(uppercaseFirstChar)) {
-            // The symbol modifier code indicates units and equipment modifiers. The first character is either unused or
-            // indicates the symbol's headquarters, task force, and feint/dummy status. MIL-STD-2525 supports any
-            // combination of the headquarters, task force, and feint/dummy states, so we check for each independently.
-            // The second character is either unused or indicates the symbol's echelon.
-
-            if (SymbologyConstants.ECHELON_ALL.contains(uppercaseSecondChar)) {
-                params.setValue(SymbologyConstants.ECHELON, secondChar);
-            }
-
-            if (SymbologyConstants.MODIFIER_CODE_ALL_HEADQUARTERS.contains(uppercaseFirstChar)) {
-                params.setValue(SymbologyConstants.HEADQUARTERS, Boolean.TRUE);
-            }
-
-            if (SymbologyConstants.MODIFIER_CODE_ALL_TASK_FORCE.contains(uppercaseFirstChar)) {
-                params.setValue(SymbologyConstants.TASK_FORCE, Boolean.TRUE);
-            }
-
-            if (SymbologyConstants.MODIFIER_CODE_ALL_FEINT_DUMMY.contains(uppercaseFirstChar)) {
-                params.setValue(SymbologyConstants.FEINT_DUMMY, Boolean.TRUE);
-            }
-        } else if (SymbologyConstants.INSTALLATION_ALL.contains(uppercaseCode)) {
-            // The symbol modifier code indicates an installation modifier. Currently, this must either be a normal
-            // installation or a feint/dummy installation. Though the installation modifier code indicates that an
-            // installation is a feint/dummy, we check for this case and set the FEINT_DUMMY modifier key to TRUE. This
-            // provides a consistent modifier key for feint/dummy status across for units/equipment and installations.
-
-            params.setValue(SymbologyConstants.INSTALLATION, code);
-
-            if (SymbologyConstants.INSTALLATION_FEINT_DUMMY.equalsIgnoreCase(code)) {
-                params.setValue(SymbologyConstants.FEINT_DUMMY, Boolean.TRUE);
-            }
-        } else if (SymbologyConstants.MOBILITY_ALL.contains(uppercaseCode)) {
-            // The symbol modifier code indicates an equipment mobility modifier.
-            params.setValue(SymbologyConstants.MOBILITY, code);
-        } else if (SymbologyConstants.AUXILIARY_EQUIPMENT_ALL.contains(uppercaseCode)) {
-            // The symbol modifier code indicates an auxiliary equipment modifier. Currently, this is limited to the
-            // towed sonar array modifier.
-            params.setValue(SymbologyConstants.AUXILIARY_EQUIPMENT, code);
-        } else if (SymbologyConstants.OPERATIONAL_CONDITION_ALL.contains(uppercaseCode)) {
-            params.setValue(SymbologyConstants.OPERATIONAL_CONDITION, code);
-        } else if (SymbologyConstants.OPERATIONAL_CONDITION_ALTERNATE_ALL.contains(uppercaseCode)) {
-            params.setValue(SymbologyConstants.OPERATIONAL_CONDITION_ALTERNATE, code);
-        }
-
-        return params;
-    }
-
-    public static String composeSymbolModifierCode(SymbolCode symbolCode, AbstractKVStore modifiers, String modifierKey) {
-        if (symbolCode == null) {
-            return null;
-        }
-
-        if (modifiers == null || modifierKey == null) {
-            return null;
-        }
-
-        Object modifierValue = modifiers.getValue(modifierKey);
-        String uppercaseValue = modifierValue != null ? modifierValue.toString().toUpperCase() : null;
-
-        if (SymbologyConstants.ECHELON.equalsIgnoreCase(modifierKey)
-                && SymbologyConstants.ECHELON_ALL.contains(uppercaseValue)) {
-            return UNUSED_POSITION_CODE + uppercaseValue;
-        } else if (SymbologyConstants.TASK_FORCE.equalsIgnoreCase(modifierKey) && Boolean.TRUE.equals(modifierValue)) {
-            Object echelonValue = modifiers.getValue(SymbologyConstants.ECHELON);
-            if (echelonValue != null && SymbologyConstants.ECHELON_ALL.contains(echelonValue.toString().toUpperCase())) {
-                return SymbologyConstants.MODIFIER_CODE_TASK_FORCE + echelonValue.toString().toUpperCase();
-            } else {
-                return SymbologyConstants.MODIFIER_CODE_TASK_FORCE + UNUSED_POSITION_CODE;
-            }
-        } else if (SymbologyConstants.FEINT_DUMMY.equalsIgnoreCase(modifierKey) && Boolean.TRUE.equals(modifierValue)) {
-            return SymbologyConstants.MODIFIER_CODE_FEINT_DUMMY + UNUSED_POSITION_CODE;
-        } else if (SymbologyConstants.INSTALLATION.equalsIgnoreCase(modifierKey)
-                && SymbologyConstants.INSTALLATION_ALL.contains(uppercaseValue)) {
-            return SymbologyConstants.INSTALLATION_NORMAL;
-        } else if (SymbologyConstants.MOBILITY.equalsIgnoreCase(modifierKey)
-                && SymbologyConstants.MOBILITY_ALL.contains(uppercaseValue)) {
-            return uppercaseValue;
-        } else if (SymbologyConstants.AUXILIARY_EQUIPMENT.equalsIgnoreCase(modifierKey)
-                && SymbologyConstants.AUXILIARY_EQUIPMENT_ALL.contains(uppercaseValue)) {
-            return uppercaseValue;
-        } else if (SymbologyConstants.OPERATIONAL_CONDITION.equalsIgnoreCase(modifierKey)) {
-            Object status = symbolCode.getStatus();
-            String uppercaseStatus = (status != null ? status.toString().toUpperCase() : null);
-
-            if (SymbologyConstants.STATUS_DAMAGED.equalsIgnoreCase(uppercaseStatus)) {
-                return SymbologyConstants.OPERATIONAL_CONDITION_DAMAGED;
-            } else if (SymbologyConstants.STATUS_DESTROYED.equalsIgnoreCase(uppercaseStatus)) {
-                return SymbologyConstants.OPERATIONAL_CONDITION_DESTROYED;
-            }
-        } else if (SymbologyConstants.OPERATIONAL_CONDITION_ALTERNATE.equalsIgnoreCase(modifierKey)) {
-            Object status = symbolCode.getStatus();
-            String uppercaseStatus = (status != null ? status.toString().toUpperCase() : null);
-
-            if (SymbologyConstants.STATUS_FULLY_CAPABLE.equalsIgnoreCase(uppercaseStatus)) {
-                return SymbologyConstants.OPERATIONAL_CONDITION_ALTERNATE_FULLY_CAPABLE;
-            } else if (SymbologyConstants.STATUS_DAMAGED.equalsIgnoreCase(uppercaseStatus)) {
-                return SymbologyConstants.OPERATIONAL_CONDITION_ALTERNATE_DAMAGED;
-            } else if (SymbologyConstants.STATUS_DESTROYED.equalsIgnoreCase(uppercaseStatus)) {
-                return SymbologyConstants.OPERATIONAL_CONDITION_ALTERNATE_DESTROYED;
-            } else if (SymbologyConstants.STATUS_FULL_TO_CAPACITY.equalsIgnoreCase(uppercaseStatus)) {
-                return SymbologyConstants.OPERATIONAL_CONDITION_ALTERNATE_FULL_TO_CAPACITY;
-            }
-        }
-
-        return null;
-    }
+//    public static String composeSymbolModifierCode(SymbolCode symbolCode, AbstractKVStore modifiers, String modifierKey) {
+//        if (symbolCode == null) {
+//            return null;
+//        }
+//
+//        if (modifiers == null || modifierKey == null) {
+//            return null;
+//        }
+//
+//        Object modifierValue = modifiers.getValue(modifierKey);
+//        String uppercaseValue = modifierValue != null ? modifierValue.toString().toUpperCase() : null;
+//
+//        if (SymbologyConstants.ECHELON.equalsIgnoreCase(modifierKey)
+//                && SymbologyConstants.ECHELON_ALL.contains(uppercaseValue)) {
+//            return UNUSED_POSITION_CODE + uppercaseValue;
+//        } else if (SymbologyConstants.TASK_FORCE.equalsIgnoreCase(modifierKey) && Boolean.TRUE.equals(modifierValue)) {
+//            Object echelonValue = modifiers.getValue(SymbologyConstants.ECHELON);
+//            if (echelonValue != null && SymbologyConstants.ECHELON_ALL.contains(echelonValue.toString().toUpperCase())) {
+//                return SymbologyConstants.MODIFIER_CODE_TASK_FORCE + echelonValue.toString().toUpperCase();
+//            } else {
+//                return SymbologyConstants.MODIFIER_CODE_TASK_FORCE + UNUSED_POSITION_CODE;
+//            }
+//        } else if (SymbologyConstants.FEINT_DUMMY.equalsIgnoreCase(modifierKey) && Boolean.TRUE.equals(modifierValue)) {
+//            return SymbologyConstants.MODIFIER_CODE_FEINT_DUMMY + UNUSED_POSITION_CODE;
+//        } else if (SymbologyConstants.INSTALLATION.equalsIgnoreCase(modifierKey)
+//                && SymbologyConstants.INSTALLATION_ALL.contains(uppercaseValue)) {
+//            return SymbologyConstants.INSTALLATION_NORMAL;
+//        } else if (SymbologyConstants.MOBILITY.equalsIgnoreCase(modifierKey)
+//                && SymbologyConstants.MOBILITY_ALL.contains(uppercaseValue)) {
+//            return uppercaseValue;
+//        } else if (SymbologyConstants.AUXILIARY_EQUIPMENT.equalsIgnoreCase(modifierKey)
+//                && SymbologyConstants.AUXILIARY_EQUIPMENT_ALL.contains(uppercaseValue)) {
+//            return uppercaseValue;
+//        } else if (SymbologyConstants.OPERATIONAL_CONDITION.equalsIgnoreCase(modifierKey)) {
+//            Object status = symbolCode.getStatus();
+//            String uppercaseStatus = (status != null ? status.toString().toUpperCase() : null);
+//
+//            if (SymbologyConstants.STATUS_DAMAGED.equalsIgnoreCase(uppercaseStatus)) {
+//                return SymbologyConstants.OPERATIONAL_CONDITION_DAMAGED;
+//            } else if (SymbologyConstants.STATUS_DESTROYED.equalsIgnoreCase(uppercaseStatus)) {
+//                return SymbologyConstants.OPERATIONAL_CONDITION_DESTROYED;
+//            }
+//        } else if (SymbologyConstants.OPERATIONAL_CONDITION_ALTERNATE.equalsIgnoreCase(modifierKey)) {
+//            Object status = symbolCode.getStatus();
+//            String uppercaseStatus = (status != null ? status.toString().toUpperCase() : null);
+//
+//            if (SymbologyConstants.STATUS_FULLY_CAPABLE.equalsIgnoreCase(uppercaseStatus)) {
+//                return SymbologyConstants.OPERATIONAL_CONDITION_ALTERNATE_FULLY_CAPABLE;
+//            } else if (SymbologyConstants.STATUS_DAMAGED.equalsIgnoreCase(uppercaseStatus)) {
+//                return SymbologyConstants.OPERATIONAL_CONDITION_ALTERNATE_DAMAGED;
+//            } else if (SymbologyConstants.STATUS_DESTROYED.equalsIgnoreCase(uppercaseStatus)) {
+//                return SymbologyConstants.OPERATIONAL_CONDITION_ALTERNATE_DESTROYED;
+//            } else if (SymbologyConstants.STATUS_FULL_TO_CAPACITY.equalsIgnoreCase(uppercaseStatus)) {
+//                return SymbologyConstants.OPERATIONAL_CONDITION_ALTERNATE_FULL_TO_CAPACITY;
+//            }
+//        }
+//
+//        return null;
+//    }
 
     /**
      * Parses a symbol code encoded into its individual fields, populating this
