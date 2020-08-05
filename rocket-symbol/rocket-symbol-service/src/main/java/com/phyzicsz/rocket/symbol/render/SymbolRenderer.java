@@ -3,7 +3,7 @@
  * National Aeronautics and Space Administration.
  * All Rights Reserved.
  */
-package com.phyzicsz.rocket.symbol.common;
+package com.phyzicsz.rocket.symbol.render;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import com.phyzicsz.rocket.symbol.kvstore.AbstractKVStore;
  * @author ccrick
  * @version $Id: IconRetriever.java 1171 2013-02-11 21:45:02Z dcollins $
  */
-public interface IconRetriever {
+public interface SymbolRenderer {
 
     /**
      * Create an icon to represent a symbol in a symbol set.

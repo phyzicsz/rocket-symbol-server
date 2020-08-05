@@ -5,7 +5,6 @@
  */
 package com.phyzicsz.rocket.symbol.render;
 
-import com.phyzicsz.rocket.symbol.common.IconRetriever;
 import com.phyzicsz.rocket.symbol.common.WWIO;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -81,7 +80,7 @@ import org.slf4j.LoggerFactory;
  * @author ccrick
  * @version $Id: AbstractIconRetriever.java 1171 2013-02-11 21:45:02Z dcollins $
  */
-public abstract class AbstractMilStdSymbolRenderer implements IconRetriever {
+public abstract class AbstractMilStdSymbolRenderer implements SymbolRenderer {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractMilStdSymbolRenderer.class);
     /**
