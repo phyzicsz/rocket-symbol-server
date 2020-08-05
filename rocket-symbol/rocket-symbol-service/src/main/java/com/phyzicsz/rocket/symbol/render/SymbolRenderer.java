@@ -1,24 +1,30 @@
 /*
- * Copyright (C) 2012 United States Government as represented by the Administrator of the
- * National Aeronautics and Space Administration.
- * All Rights Reserved.
+ * Copyright 2020 phyzicsz <phyzics.z@gmail.com>.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.phyzicsz.rocket.symbol.render;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import com.phyzicsz.rocket.symbol.kvstore.AbstractKVStore;
+import com.phyzicsz.rocket.symbol.common.SymbolServiceProperties;
 
 /**
  * Retrieves icons for symbols in a symbol set from a local disk or the network.
  * Typically, an icon retriever will be implemented for a specific symbol set.
- * For example, the
- * {@link gov.nasa.worldwind.symbology.milstd2525.MilStd2525IconRetriever}
- * retrieves icons for symbols in the MIL-STD-2525 symbology set. See the <a href="https://worldwind.arc.nasa.gov/java/tutorials/icon-retriever/"
- * target="_blank">Icon Retriever Usage Guide</a> for more information.
+ * 
  *
- * @author ccrick
- * @version $Id: IconRetriever.java 1171 2013-02-11 21:45:02Z dcollins $
+ * @author phyzicsz <phyzics.z@gmail.com>
  */
 public interface SymbolRenderer {
 
@@ -27,10 +33,11 @@ public interface SymbolRenderer {
      *
      * @param symbolId Identifier for the symbol. The format of this identifier
      * depends on the symbology set.
-     * @param params Parameters that affect icon retrieval.
+     * @param props
      *
      * @return A BufferedImage containing the requested icon, or null if the
      * icon cannot be retrieved.
+     * @throws java.io.IOException
      */
-    BufferedImage createIcon(String symbolId, AbstractKVStore params) throws IOException;
+    BufferedImage createIcon(String symbolId, SymbolServiceProperties props) throws IOException;
 }

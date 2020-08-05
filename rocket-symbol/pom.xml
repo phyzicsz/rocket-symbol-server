@@ -49,6 +49,7 @@
         <java.release.version>11</java.release.version>
         
         <!-- dependancies -->
+        <guava.version>29.0-jre</guava.version>
         <logback.version>1.2.3</logback.version>
         <slf4j.version>1.7.29</slf4j.version>
         
@@ -74,6 +75,11 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
             
             <!--test dependencies-->

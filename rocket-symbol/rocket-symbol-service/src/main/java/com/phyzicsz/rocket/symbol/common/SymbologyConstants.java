@@ -1,7 +1,17 @@
 /*
- * Copyright (C) 2012 United States Government as represented by the Administrator of the
- * National Aeronautics and Space Administration.
- * All Rights Reserved.
+ * Copyright 2020 phyzicsz <phyzics.z@gmail.com>.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.phyzicsz.rocket.symbol.common;
 
@@ -13,8 +23,7 @@ import java.util.List;
  * constants and modifier keys for MIL-STD-2525 tactical symbols and tactical
  * graphics.
  *
- * @author dcollins
- * @version $Id: SymbologyConstants.java 1171 2013-02-11 21:45:02Z dcollins $
+ * @author phyzicsz <phyzics.z@gmail.com>
  */
 public interface SymbologyConstants {
 
@@ -77,32 +86,12 @@ public interface SymbologyConstants {
      * The MIL-STD-2525 Azimuth modifier field ID. Indicates a distance in
      * meters (radius, length, width, etc). See MIL-STD-2525 section 5.5.2 (page
      * 38), table XI (pages 38-39) and table XIV (pages 46-47). When used as a
-     * key, the corresponding value must be an
-     * {@link gov.nasa.worldwind.geom.Angle} indicating an angle relative to
+     * key, the corresponding value must be an indicating an angle relative to
      * true north.
      */
     final String AZIMUTH = "AN";
 
-    /**
-     * Indicates the battle dimension code associated with a MIL-STD-2525 symbol
-     * (SIDC position 3). A symbol's battle dimension defines the primary
-     * mission area for the object being represented. See MIL-STD-2525C section
-     * 5.3.1.3 (page 17), table I (page 15) and table II (page 16). When used as
-     * a key, the corresponding value must be one of the following:
-     * <ul> <li>BATTLE_DIMENSION_SPACE</li> <li>BATTLE_DIMENSION_AIR</li>
-     * <li>BATTLE_DIMENSION_GROUND</li>
-     * <li>BATTLE_DIMENSION_SEA_SURFACE</li>
-     * <li>BATTLE_DIMENSION_SEA_SUBSURFACE</li> <li>BATTLE_DIMENSION_SOF</li>
-     * <li>BATTLE_DIMENSION_OTHER</li> </ul>
-     * <p>
-     * The battle dimension codes are the same for all symbology schemes that
-     * use them, and are defined in each appendix of the MIL-STD-2525C
-     * specification:
-     * <ul> <li>Warfighting - section A.5.2.1.c (page 51) and table A-I (page
-     * 51)</li> <li>Signals Intelligence - section D.5.2.1.c (page 963) and
-     * table D-I (page 964)</li> </ul>
-     */
-    final String BATTLE_DIMENSION = "gov.nasa.worldwind.symbology.BattleDimension";
+    
     /**
      * The MIL-STD-2525 Air battle dimension code. Indicates a symbol who's
      * mission area is between the surface of the Earth and the space dimension.
@@ -178,35 +167,7 @@ public interface SymbologyConstants {
             BATTLE_DIMENSION_OTHER
     );
 
-    /**
-     * Indicates the category code associated with a MIL-STD-2525 symbol (SIDC
-     * position 3). The meaning of a symbol's category and the recognized values
-     * depend on the specific MIL-STD-2525 symbology scheme the symbol belongs
-     * to, and are defined in each appendix of the MIL-STD-2525C specification:
-     * <p>
-     * <strong>Tactical Graphics</strong> <br> See MIL-STD-2525C section
-     * B5.2.1.c (page 304) and table B-I (page 305).
-     * <ul> <li>CATEGORY_TASKS</li>
-     * <li>CATEGORY_COMMAND_CONTROL_GENERAL_MANEUVER</li>
-     * <li>CATEGORY_MOBILITY_SURVIVABILITY</li> <li>CATEGORY_FIRE_SUPPORT</li>
-     * <li>CATEGORY_COMBAT_SERVICE_SUPPORT</li>
-     * <li>CATEGORY_OTHER</li> </ul>
-     * <p>
-     * <strong>Stability Operations</strong> <br> See MIL-STD-2525C section
-     * E5.2.1.c (page 991) and table E-I (page 991).
-     * <ul> <li>CATEGORY_VIOLENT_ACTIVITIES</li> <li>CATEGORY_LOCATIONS</li>
-     * <li>CATEGORY_OPERATIONS</li>
-     * <li>CATEGORY_ITEMS</li> <li>CATEGORY_INDIVIDUAL</li>
-     * <li>CATEGORY_NONMILITARY_GROUP_ORGANIZATION</li>
-     * <li>CATEGORY_RAPE</li> </ul>
-     * <p>
-     * <strong>Emergency Management</strong> <br> See MIL-STD-2525C table G-I
-     * (page 1032).
-     * <ul> <li>CATEGORY_INCIDENT</li> <li>CATEGORY_NATURAL_EVENTS</li>
-     * <li>CATEGORY_OPERATIONS</li>
-     * <li>CATEGORY_INFRASTRUCTURE</li> </ul>
-     */
-    final String CATEGORY = "gov.nasa.worldwind.symbology.Category";
+    
     /**
      * The MIL-STD-2525 Command and Control General Maneuver category code, used
      * by symbols belonging to the Tactical Graphics scheme.
@@ -386,20 +347,7 @@ public interface SymbologyConstants {
      */
     final String COMBAT_EFFECTIVENESS = "K";
 
-    /**
-     * Indicates the country code associated with a MIL-STD-2525 symbol (SIDC
-     * positions 13-14). See <a
-     * href="http://www.iso.org/iso/country_codes.htm" target="_blank">ISO
-     * 3166-1</a> for a definition of valid country codes. The country codes are
-     * the same for all symbology schemes that use them:
-     * <ul> <li>Warfighting - section A.5.2.1.g and table A-I (page 51)</li>
-     * <li>Tactical Graphics - section B.5.2.1.g (page 304) and table B-I (page
-     * 305)</li> <li>Signals Intelligence - section D.5.2.1.g and table D-I
-     * (page 964)</li> <li>Stability Operations - section E.5.2.1.g and table
-     * E-I (page 991)</li> <li>Emergency Management - table G-I (page 1032)</li>
-     * </ul>
-     */
-    final String COUNTRY_CODE = "gov.nasa.worldwind.symbology.CountryCode";
+    
 
     /**
      * The MIL-STD-2525 Date Time Group (DTG) modifier field ID. Displays a time
@@ -414,8 +362,7 @@ public interface SymbologyConstants {
      * Indicates the direction of movement or intended movement of an object.
      * See MIL-STD-2525 section 5.3.4.1 (page 25), table IV (pages 22-24) and
      * table XIV (pages 46-47). When used as a key, the corresponding value must
-     * be an {@link gov.nasa.worldwind.geom.Angle} indicating the object's
-     * heading relative to true north.
+     * be an indicating the object's heading relative to true north.
      */
     final String DIRECTION_OF_MOVEMENT = "Q";
 
@@ -600,30 +547,9 @@ public interface SymbologyConstants {
 
     final String FRAME_SHAPE_FAKER = "K";
 
-    /**
-     * Indicates the function ID associated with a MIL-STD-2525 symbol (SIDC
-     * positions 5-10). The function IDs are unique to each symbology schemes
-     * that uses them, and are defined in each appendix of the MIL-STD-2525C
-     * specification:
-     * <ul> <li>Warfighting - section A.5.2.1.e (page 51) and table A-I (page
-     * 51)</li> <li>Tactical Graphics - section B.5.2.1.e (page 304) and table
-     * B-I (page 305)</li> <li>Meteorological and Oceanographic - section
-     * C.5.2.1.d (page 763) and table C-I (page 763)</li> <li>Signals
-     * Intelligence - section D.5.2.1.e (page 964) and table D-I (page 964)</li>
-     * <li>Stability Operations - section E.5.2.1.e (page 991) and table E-I
-     * (page 991)</li> <li>Emergency Management - table G-I (page 1032)</li>
-     * </ul>
-     */
-    final String FUNCTION_ID = "gov.nasa.worldwind.symbology.FunctionId";
+    
 
-    /**
-     * Indicates the type of a graphic in the Meteorological and Oceanographic
-     * scheme (SIDC positions 11-13). When used as a key, the corresponding
-     * value must be one of the following:
-     * <ul> <li>GRAPHIC_TYPE_POINT</li> <li>GRAPHIC_TYPE_LINE</li>
-     * <li>GRAPHIC_TYPE_AREA</li> </ul>
-     */
-    final String GRAPHIC_TYPE = "gov.nasa.worldwind.symbology.GraphicType";
+    
     /**
      * The MIL-STD-2525 Point type, used by symbols belonging to the METOC
      * scheme.
@@ -677,10 +603,6 @@ public interface SymbologyConstants {
      * entities and include Hostile Enemy modifier in the MIL-STD-2525C graphic
      * template. Use the accessors on TacticalGraphic to enable or disable
      * display of this modifier for a particular graphic.
-     *
-     * @see
-     * gov.nasa.worldwind.symbology.TacticalGraphic#isShowHostileIndicator()
-     * @see TacticalGraphic#setShowHostileIndicator(boolean)
      */
     final String HOSTILE_ENEMY = "ENY";
 
@@ -922,7 +844,7 @@ public interface SymbologyConstants {
             MODIFIER_CODE_FEINT_DUMMY_TASK_FORCE
     );
 
-    final String OPERATIONAL_CONDITION = "gov.nasa.worldwind.symbology.OperationalCondition";
+    
     final String OPERATIONAL_CONDITION_DAMAGED = "OD";
     final String OPERATIONAL_CONDITION_DESTROYED = "OX";
     final List<String> OPERATIONAL_CONDITION_ALL = Arrays.asList(
@@ -930,7 +852,7 @@ public interface SymbologyConstants {
             OPERATIONAL_CONDITION_DESTROYED
     );
 
-    final String OPERATIONAL_CONDITION_ALTERNATE = "gov.nasa.worldwind.symbology.OperationalConditionAlternate";
+   
     final String OPERATIONAL_CONDITION_ALTERNATE_FULLY_CAPABLE = "PC";
     final String OPERATIONAL_CONDITION_ALTERNATE_DAMAGED = "PD";
     final String OPERATIONAL_CONDITION_ALTERNATE_DESTROYED = "PX";
@@ -942,30 +864,7 @@ public interface SymbologyConstants {
             OPERATIONAL_CONDITION_ALTERNATE_FULL_TO_CAPACITY
     );
 
-    /**
-     * Indicates the order of battle code associated with a MIL-STD-2525 symbol
-     * (SIDC position 15). A symbol's order of battle provides additional
-     * information about the symbol in the operational environment. The
-     * recognized values depend on the specific MIL-STD-2525 symbology scheme
-     * the symbol belongs to, and are defined in each appendix of the
-     * MIL-STD-2525C specification:
-     * <p>
-     * <strong>Warfighting, Signals Intelligence, Stability Operations,
-     * Emergency Management</strong> <br> See MIL-STD-2525C section A.5.2.1.h
-     * (page 51), table A-I (page 51), section D.5.2.1.h (page 964), table D-I
-     * (page 964), section E.5.2.1.h (page 991), table E-I (page 991), and table
-     * G-I (page 1032).
-     * <ul> <li>ORDER_OF_BATTLE_AIR</li> <li>ORDER_OF_BATTLE_ELECTRONIC</li>
-     * <li>ORDER_OF_BATTLE_CIVILIAN</li>
-     * <li>ORDER_OF_BATTLE_GROUND</li> <li>ORDER_OF_BATTLE_MARITIME</li>
-     * <li>ORDER_OF_BATTLE_STRATEGIC_FORCE_RELATED</li>
-     * </ul>
-     * <p>
-     * <strong>Tactical Graphics</strong> <br> See MIL-STD-2525C section
-     * B5.2.1.h (page 304) and table B-I (page 305).
-     * <ul> <li>ORDER_OF_BATTLE_CONTROL_MARKINGS</li> </ul>
-     */
-    final String ORDER_OF_BATTLE = "gov.nasa.worldwind.symbology.OrderOfBattle";
+    
     /**
      * The MIL-STD-2525 Air order of battle code.
      */
@@ -1064,7 +963,7 @@ public interface SymbologyConstants {
      * <li>SCHEME_INTELLIGENCE</li> <li>SCHEME_STABILITY_OPERATIONS</li>
      * <li>SCHEME_EMERGENCY_MANAGEMENT</li> </ul>
      */
-    final String SCHEME = "gov.nasa.worldwind.symbology.Scheme";
+    final String SCHEME = "SymbolServiceProperties.Scheme";
     /**
      * The MIL-STD-2525 Emergency Management (EM) scheme code. See MIL-STD-2525C
      * table G-I (page 1032).
@@ -1108,37 +1007,9 @@ public interface SymbologyConstants {
             SCHEME_EMERGENCY_MANAGEMENT
     );
 
-    /**
-     * Indicates whether to display a MIL-STD-2525 tactical symbol's fill color.
-     * See MIL-STD-2525 section 5.4.5 (page 24) and table IX (page 35). When
-     * used as a key, the corresponding value must be a boolean value. The value
-     * is <code>true</code> if the symbol's fill color should be displayed, and
-     * <code>false</code> otherwise.
-     */
-    final String SHOW_FILL = "gov.nasa.worldwind.symbology.ShowFill";
-    /**
-     * Indicates whether to display a MIL-STD-2525 tactical symbol's frame. See
-     * MIL-STD-2525 section 5.4.5 (page 24) and table IX (page 35). When used as
-     * a key, the corresponding value must be a boolean value. The value is
-     * <code>true</code> if the symbol's frame should be displayed, and
-     * <code>false</code> otherwise.
-     */
-    final String SHOW_FRAME = "gov.nasa.worldwind.symbology.ShowFrame";
-    /**
-     * Indicates whether to display a MIL-STD-2525 tactical symbol's icon. See
-     * MIL-STD-2525 section 5.4.5 (page 24) and table IX (page 35). When used as
-     * a key, the corresponding value must be a boolean value. The value is
-     * <code>true</code> if the symbol's icon should be displayed, and
-     * <code>false</code> otherwise.
-     */
-    final String SHOW_ICON = "gov.nasa.worldwind.symbology.ShowIcon";
+    
+   
 
-    /**
-     * @deprecated Use {@link TacticalSymbol#setShowLocation(boolean)} to
-     * control the visibility of the location modifier.
-     */
-    @Deprecated
-    final String SHOW_LOCATION = "gov.nasa.worldwind.symbology.ShowLocation";
 
     /**
      * The MIL-STD-2525 Signature Equipment modifier field ID. Indicates
@@ -1189,35 +1060,7 @@ public interface SymbologyConstants {
      */
     final String STAFF_COMMENTS = "G";
 
-    /**
-     * Indicates the standard identity code associated with a MIL-STD-2525
-     * symbol (SIDC position 2). A symbol's standard identity defines the threat
-     * posed by the object being represented. See MIL-STD-2525C section 3.2.39
-     * (page 10), section 5.3.1.1 (page 17), table I (page 15), and table II
-     * (page 16). When used as a key, the corresponding value must be one of the
-     * following:
-     * <ul> <li>STANDARD_IDENTITY_PENDING</li>
-     * <li>STANDARD_IDENTITY_UNKNOWN</li>
-     * <li>STANDARD_IDENTITY_ASSUMED_FRIEND</li>
-     * <li>STANDARD_IDENTITY_FRIEND</li> <li>STANDARD_IDENTITY_NEUTRAL</li>
-     * <li>STANDARD_IDENTITY_SUSPECT</li>
-     * <li>STANDARD_IDENTITY_HOSTILE</li>
-     * <li>STANDARD_IDENTITY_EXERCISE_PENDING</li>
-     * <li>STANDARD_IDENTITY_EXERCISE_UNKNOWN</li>
-     * <li>STANDARD_IDENTITY_EXERCISE_ASSUMED_FRIEND</li>
-     * <li>STANDARD_IDENTITY_EXERCISE_FRIEND</li>
-     * <li>STANDARD_IDENTITY_EXERCISE_NEUTRAL</li>
-     * <li>STANDARD_IDENTITY_JOKER</li> <li>STANDARD_IDENTITY_FAKER</li> </ul>
-     * <p>
-     * The standard identity codes are the same for all symbology schemes that
-     * use them, and are defined in each appendix of the MIL-STD-2525
-     * specification:
-     * <ul> <li>Warfighting - table A-I (page 51)</li> <li>Tactical Graphics -
-     * table B-I (page 305)</li> <li>Signals Intelligence - table D-I (page
-     * 964)</li> <li>Stability Operations - table E-I (page 991)</li>
-     * <li>Emergency Management - table G-I (page 1032)</li> </ul>
-     */
-    final String STANDARD_IDENTITY = "gov.nasa.worldwind.symbology.StandardIdentity";
+   
     /**
      * The MIL-STD-2525 Assumed Friend standard identity code. Indicates a
      * symbol assumed to be a friend because of its characteristics or origin.
@@ -1318,13 +1161,7 @@ public interface SymbologyConstants {
             STANDARD_IDENTITY_FAKER
     );
 
-    /**
-     * Indicates if a graphic in the Meteorological and Oceanographic scheme is
-     * static or dynamic (SIDC positions 3 and 4). When used as a key, the
-     * corresponding value must be one of the following:
-     * <ul> <li>STATIC</li> <li>DYNAMIC</li> </ul>
-     */
-    final String STATIC_DYNAMIC = "gov.nasa.worldwind.symbology.StaticDynamic";
+   
     /**
      * The MIL-STD-2525 Static, used by symbols belonging to the METOC scheme.
      */
@@ -1456,20 +1293,7 @@ public interface SymbologyConstants {
             STATUS_KNOWN
     );
 
-    /**
-     * Indicates the symbol modifier code associated with a MIL-STD-2525 symbol
-     * (SIDC positions 11-12). The symbol modifier code defines what graphic
-     * symbol modifiers should be displayed around the symbol's icon, such as
-     * feint/dummy, installation, task force, headquarters staff, equipment
-     * mobility, and auxiliary equipment. The recognized values depend on the
-     * specific MIL-STD-2525 symbology scheme the symbol belongs to, and are
-     * defined in each appendix of the MIL-STD-2525C specification:
-     * <ul> <li>Warfighting - section A.5.2.1.f (page 51) and table A-II (pages
-     * 52-54)</li> <li>Stability Operations - section E.5.2.1.f (page 991) and
-     * table E-II (pages 992-994)</li> <li>Emergency Management - section G.5.5
-     * (page 1029) and table EG-II (page 1032)</li> </ul>
-     */
-    final String SYMBOL_MODIFIER = "gov.nasa.worldwind.symbology.SymbolModifier";
+    
 
     /**
      * The MIL-STD-2525 Symbol Indicator modifier field ID. Indicates a symbol

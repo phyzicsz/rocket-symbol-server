@@ -1,11 +1,20 @@
 /*
- * Copyright (C) 2012 United States Government as represented by the Administrator of the
- * National Aeronautics and Space Administration.
- * All Rights Reserved.
+ * Copyright 2020 phyzicsz <phyzics.z@gmail.com>.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.phyzicsz.rocket.symbol.common;
 
-import com.phyzicsz.rocket.symbol.kvstore.KVStore;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,10 +57,9 @@ import org.slf4j.LoggerFactory;
  * Management</td><td>YES</td><td>YES</td><td>NO</td><td>YES</td><td>YES</td><td>YES</td><td>YES</td><td>NO</td><td>YES</td><td>YES</td></tr>
  * </table>
  *
- * @author pabercrombie
- * @version $Id: SymbolCode.java 1171 2013-02-11 21:45:02Z dcollins $
+ * @author phyzicsz <phyzics.z@gmail.com>
  */
-public class SymbolCode extends KVStore {
+public class SymbolCode extends SymbolServiceProperties {
 
     private static final Logger logger = LoggerFactory.getLogger(SymbolCode.class);
 
@@ -71,13 +79,14 @@ public class SymbolCode extends KVStore {
 
     /**
      * Creates a new SymbolCode by parsing the fields of the specified
-     * MIL-STD-2525 15-character alphanumeric symbol identification code (SIDC).This populates the new SymbolCode's fields according to the contents of
- the string.This throws an exception if any field in the symbol code is
- unrecognized, and indicates the problematic fields in the exception's
- message.
-     * After construction, each field can be accessed by calling the
- appropriate accessor methods (for example: getScheme/setScheme)
- <p>
+     * MIL-STD-2525 15-character alphanumeric symbol identification code
+     * (SIDC).This populates the new SymbolCode's fields according to the
+     * contents of the string.This throws an exception if any field in the
+     * symbol code is unrecognized, and indicates the problematic fields in the
+     * exception's message. After construction, each field can be accessed by
+     * calling the appropriate accessor methods (for example:
+     * getScheme/setScheme)
+     * <p>
      * See SymbolCode's class-level documentation for an overview of the
      * supported MIL-STD-2525 symbol code fields.
      *
@@ -97,7 +106,7 @@ public class SymbolCode extends KVStore {
             logger.error("symbol code is invalid length: {}", symCode.length());
             throw new IllegalArgumentException("symbol code is invalid len");
         }
-                
+
         String s = this.parseSymCode(symCode);
         if (s != null) {
             // A non-null return value indicates the symCode is unrecognized, and contains a message indicating the
@@ -131,7 +140,7 @@ public class SymbolCode extends KVStore {
      * <code>null</code>.
      */
     public void setScheme(String value) {
-        this.setValue(SymbologyConstants.SCHEME, value);
+        this.put(SymbologyConstants.SCHEME, value);
     }
 
     /**
@@ -143,7 +152,7 @@ public class SymbolCode extends KVStore {
      * @see #setStandardIdentity(String)
      */
     public String getStandardIdentity() {
-        return this.getStringValue(SymbologyConstants.STANDARD_IDENTITY);
+        return this.getStringValue(SymbolServiceProperties.STANDARD_IDENTITY);
     }
 
     /**
@@ -167,7 +176,7 @@ public class SymbolCode extends KVStore {
      * <code>null</code>.
      */
     public void setStandardIdentity(String value) {
-        this.setValue(SymbologyConstants.STANDARD_IDENTITY, value);
+        this.put(SymbolServiceProperties.STANDARD_IDENTITY, value);
     }
 
     /**
@@ -179,7 +188,7 @@ public class SymbolCode extends KVStore {
      * @see #setBattleDimension(String)
      */
     public String getBattleDimension() {
-        return this.getStringValue(SymbologyConstants.BATTLE_DIMENSION);
+        return this.getStringValue(SymbolServiceProperties.BATTLE_DIMENSION);
     }
 
     /**
@@ -196,7 +205,7 @@ public class SymbolCode extends KVStore {
      * <code>null</code>.
      */
     public void setBattleDimension(String value) {
-        this.setValue(SymbologyConstants.BATTLE_DIMENSION, value);
+        this.put(SymbolServiceProperties.BATTLE_DIMENSION, value);
     }
 
     /**
@@ -207,7 +216,7 @@ public class SymbolCode extends KVStore {
      * @see #setCategory(String)
      */
     public String getCategory() {
-        return this.getStringValue(SymbologyConstants.CATEGORY);
+        return this.getStringValue(SymbolServiceProperties.CATEGORY);
     }
 
     /**
@@ -238,7 +247,7 @@ public class SymbolCode extends KVStore {
      * <code>null</code>.
      */
     public void setCategory(String value) {
-        this.setValue(SymbologyConstants.CATEGORY, value);
+        this.put(SymbolServiceProperties.CATEGORY, value);
     }
 
     /**
@@ -278,7 +287,7 @@ public class SymbolCode extends KVStore {
      * May be <code>null</code>.
      */
     public void setStatus(String value) {
-        this.setValue(SymbologyConstants.STATUS, value);
+        this.put(SymbologyConstants.STATUS, value);
     }
 
     /**
@@ -289,7 +298,7 @@ public class SymbolCode extends KVStore {
      * @see #setFunctionId(String)
      */
     public String getFunctionId() {
-        return this.getStringValue(SymbologyConstants.FUNCTION_ID);
+        return this.getStringValue(SymbolServiceProperties.FUNCTION_ID);
     }
 
     /**
@@ -309,7 +318,7 @@ public class SymbolCode extends KVStore {
      * <code>null</code>.
      */
     public void setFunctionId(String value) {
-        this.setValue(SymbologyConstants.FUNCTION_ID, value);
+        this.put(SymbolServiceProperties.FUNCTION_ID, value);
     }
 
     /**
@@ -320,7 +329,7 @@ public class SymbolCode extends KVStore {
      * @see #setSymbolModifier(String)
      */
     public String getSymbolModifier() {
-        return this.getStringValue(SymbologyConstants.SYMBOL_MODIFIER);
+        return this.getStringValue(SymbolServiceProperties.SYMBOL_MODIFIER);
     }
 
     /**
@@ -340,7 +349,7 @@ public class SymbolCode extends KVStore {
      * <code>null</code>.
      */
     public void setSymbolModifier(String value) {
-        this.setValue(SymbologyConstants.SYMBOL_MODIFIER, value);
+        this.put(SymbolServiceProperties.SYMBOL_MODIFIER, value);
     }
 
     /**
@@ -373,7 +382,7 @@ public class SymbolCode extends KVStore {
      * <code>null</code>.
      */
     public void setEchelon(String value) {
-        this.setValue(SymbologyConstants.ECHELON, value);
+        this.put(SymbologyConstants.ECHELON, value);
     }
 
     /**
@@ -384,7 +393,7 @@ public class SymbolCode extends KVStore {
      * @see #setCountryCode(String)
      */
     public String getCountryCode() {
-        return this.getStringValue(SymbologyConstants.COUNTRY_CODE);
+        return this.getStringValue(SymbolServiceProperties.COUNTRY_CODE);
     }
 
     /**
@@ -396,7 +405,7 @@ public class SymbolCode extends KVStore {
      * <code>null</code>.
      */
     public void setCountryCode(String value) {
-        this.setValue(SymbologyConstants.COUNTRY_CODE, value);
+        this.put(SymbolServiceProperties.COUNTRY_CODE, value);
     }
 
     /**
@@ -407,7 +416,7 @@ public class SymbolCode extends KVStore {
      * @see #setOrderOfBattle(String)
      */
     public String getOrderOfBattle() {
-        return this.getStringValue(SymbologyConstants.ORDER_OF_BATTLE);
+        return this.getStringValue(SymbolServiceProperties.ORDER_OF_BATTLE);
     }
 
     /**
@@ -431,7 +440,7 @@ public class SymbolCode extends KVStore {
      * <code>null</code>.
      */
     public void setOrderOfBattle(String value) {
-        this.setValue(SymbologyConstants.ORDER_OF_BATTLE, value);
+        this.put(SymbolServiceProperties.ORDER_OF_BATTLE, value);
     }
 
     /**
@@ -443,7 +452,7 @@ public class SymbolCode extends KVStore {
      * @see #setStaticDynamic(String)
      */
     public String getStaticDynamic() {
-        return this.getStringValue(SymbologyConstants.STATIC_DYNAMIC);
+        return this.getStringValue(SymbolServiceProperties.STATIC_DYNAMIC);
     }
 
     /**
@@ -455,7 +464,7 @@ public class SymbolCode extends KVStore {
      * <code>null</code>.
      */
     public void setStaticDynamic(String value) {
-        this.setValue(SymbologyConstants.STATIC_DYNAMIC, value);
+        this.put(SymbolServiceProperties.STATIC_DYNAMIC, value);
     }
 
     /**
@@ -466,7 +475,7 @@ public class SymbolCode extends KVStore {
      * @see #setStaticDynamic(String)
      */
     public String getGraphicType() {
-        return this.getStringValue(SymbologyConstants.GRAPHIC_TYPE);
+        return this.getStringValue(SymbolServiceProperties.GRAPHIC_TYPE);
     }
 
     /**
@@ -478,7 +487,7 @@ public class SymbolCode extends KVStore {
      * <code>null</code>.
      */
     public void setGraphicType(String value) {
-        this.setValue(SymbologyConstants.GRAPHIC_TYPE, value);
+        this.put(SymbolServiceProperties.GRAPHIC_TYPE, value);
     }
 
     /**
@@ -629,7 +638,6 @@ public class SymbolCode extends KVStore {
 //
 //        return params;
 //    }
-
 //    public static String composeSymbolModifierCode(SymbolCode symbolCode, AbstractKVStore modifiers, String modifierKey) {
 //        if (symbolCode == null) {
 //            return null;
@@ -689,7 +697,6 @@ public class SymbolCode extends KVStore {
 //
 //        return null;
 //    }
-
     /**
      * Parses a symbol code encoded into its individual fields, populating this
      * SymbolCode's fields with the value of each field. Fields that are either

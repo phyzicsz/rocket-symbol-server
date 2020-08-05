@@ -16,19 +16,13 @@
 package com.phyzicsz.milo.core;
 
 import com.phyzicsz.rocket.symbol.RocketSymbolService;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 import org.junit.jupiter.api.Test;
-import com.phyzicsz.rocket.symbol.kvstore.AbstractKVStore;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
