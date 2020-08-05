@@ -51,13 +51,10 @@ public class RocketSymbolServerTest {
     public void testCreateIcon() throws Exception {
         System.out.println("createIcon");
         String symbolCode = "SFUPSK---------";
-        AbstractKVStore params = null;
         RocketSymbolService instance = new RocketSymbolService();
 
         byte[] actual = instance.asPng(symbolCode);
 
-//         Path testFile = Paths.get("src", "test", "resources",symbolCode + ".png");
-//        byte[] expected = Files.readAllBytes(testFile);
         byte[] expected = getClass().getClassLoader().getResourceAsStream(symbolCode + ".png").readAllBytes();
         assertThat(expected).contains(actual);
 

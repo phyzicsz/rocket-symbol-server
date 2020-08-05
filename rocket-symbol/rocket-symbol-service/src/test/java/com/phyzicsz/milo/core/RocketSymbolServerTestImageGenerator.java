@@ -16,20 +16,12 @@
 package com.phyzicsz.milo.core;
 
 import com.phyzicsz.rocket.symbol.RocketSymbolService;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 import org.junit.jupiter.api.Test;
-import com.phyzicsz.rocket.symbol.kvstore.AbstractKVStore;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Disabled;
 
 /**
@@ -49,7 +41,6 @@ public class RocketSymbolServerTestImageGenerator {
     public void testCreateIcon() throws Exception {
         System.out.println("createIcon");
         String sidc = "SFUPSK---------";
-        AbstractKVStore params = null;
         RocketSymbolService instance = new RocketSymbolService();
 
         Path path = Paths.get("/tmp", sidc + ".png");
